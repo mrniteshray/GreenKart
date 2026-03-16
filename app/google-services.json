@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "415133076555",
+    "project_id": "greenkart-1b5e6",
+    "storage_bucket": "greenkart-1b5e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415133076555:android:e467a6fb1a93d42c5191ce",
+        "android_client_info": {
+          "package_name": "com.greenkart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgoqsSaVT62_kWyCuqtn6EiaZyLplOEnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
