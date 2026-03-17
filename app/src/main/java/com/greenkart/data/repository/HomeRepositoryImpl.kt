@@ -35,6 +35,21 @@ class HomeRepositoryImpl(
         }
     }
 
+    override fun getVegetableById(id: String): Flow<Resource<Vegetable>> = flow {
+        emit(Resource.Loading())
+        try {
+            val data = loadData()
+            val vegetable = data.vegetables.find { it.id == id }
+            if (vegetable != null) {
+                emit(Resource.Success(vegetable))
+            } else {
+                emit(Resource.Error("Vegetable not found"))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.message ?: "Failed to load vegetable details"))
+        }
+    }
+
     private fun loadData(): HomeDataResponse {
         val inputStream = context.assets.open("vegetables.json")
         val reader = InputStreamReader(inputStream)

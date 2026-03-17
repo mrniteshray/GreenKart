@@ -15,7 +15,7 @@ class GreenkartApp : Application() {
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@GreenkartApp)
-            modules(authModule, homeModule)
+            modules(authModule, homeModule, com.greenkart.di.cartModule)
         }
     }
 }

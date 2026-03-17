@@ -33,7 +33,9 @@ sealed class BottomNavItem(
 
 @Composable
 fun MainScreen(
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    onNavigateToDetail: (String) -> Unit,
+    onViewCart: () -> Unit
 ) {
     val items = listOf(
         BottomNavItem.Shop,
@@ -77,7 +79,13 @@ fun MainScreen(
         ) {
             when (selectedItemIndex) {
                 0 -> {
-                    HomeScreen()
+                    HomeScreen(
+                        onNavigateToDetail = onNavigateToDetail,
+                        onViewCart = onViewCart
+                    )
+                }
+                2 -> {
+                    com.greenkart.presentation.order.OrderScreen()
                 }
                 3 -> {
                     AccountScreen(onLogout = onLogout)

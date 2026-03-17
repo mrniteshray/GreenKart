@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface HomeRepository {
     fun getCategories(): Flow<Resource<List<Category>>>
     fun getVegetables(): Flow<Resource<List<Vegetable>>>
+    fun getVegetableById(id: String): Flow<Resource<Vegetable>>
 }

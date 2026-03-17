@@ -16,7 +16,8 @@ data class HomeState(
     val categories: List<Category> = emptyList(),
     val vegetables: List<Vegetable> = emptyList(),
     val error: String? = null,
-    val selectedCategoryId: String? = null
+    val selectedCategoryId: String? = null,
+    val searchQuery: String = ""
 )
 
 class HomeViewModel(
@@ -76,5 +77,9 @@ class HomeViewModel(
 
     fun selectCategory(categoryId: String?) {
         _homeState.value = _homeState.value.copy(selectedCategoryId = categoryId)
+    }
+
+    fun onSearchQueryChange(query: String) {
+        _homeState.value = _homeState.value.copy(searchQuery = query)
     }
 }

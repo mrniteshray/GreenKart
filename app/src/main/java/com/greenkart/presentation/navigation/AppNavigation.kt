@@ -12,6 +12,10 @@ sealed class Screen(val route: String) {
     data object Login : Screen("login")
     data object Signup : Screen("signup")
     data object Main : Screen("main")
+    data object Detail : Screen("detail/{vegetableId}") {
+        fun createRoute(id: String) = "detail/$id"
+    }
+    data object Cart : Screen("cart")
 }
 
 @Composable
@@ -56,6 +60,32 @@ fun AppNavigation(navController: NavHostController) {
                     navController.navigate(Screen.Login.route) {
                         popUpTo(0) { inclusive = true }
                         launchSingleTop = true
+                    }
+                },
+                onNavigateToDetail = { vegetableId ->
+                    navController.navigate(Screen.Detail.createRoute(vegetableId))
+                },
+                onViewCart = {
+                    navController.navigate(Screen.Cart.route)
+                }
+            )
+        }
+
+        composable(Screen.Detail.route) { backStackEntry ->
+            val vegetableId = backStackEntry.arguments?.getString("vegetableId") ?: ""
+            com.greenkart.presentation.detail.VegetableDetailScreen(
+                vegetableId = vegetableId,
+                onBack = { navController.popBackStack() },
+                onViewCart = { navController.navigate(Screen.Cart.route) }
+            )
+        }
+
+        composable(Screen.Cart.route) {
+            com.greenkart.presentation.cart.CartScreen(
+                onBack = { navController.popBackStack() },
+                onOrderPlaced = {
+                    navController.navigate(Screen.Main.route) {
+                        popUpTo(Screen.Main.route) { inclusive = true }
                     }
                 }
             )
