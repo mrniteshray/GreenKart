@@ -1,5 +1,7 @@
 package com.greenkart.presentation.cart
 
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,10 +30,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun CartScreen(
     viewModel: CartViewModel = koinViewModel(),
+    authViewModel: com.greenkart.presentation.auth.AuthViewModel = koinViewModel(),
     onBack: () -> Unit,
     onOrderPlaced: () -> Unit
 ) {
+    val context = LocalContext.current
     val state by viewModel.state
+    val authState by authViewModel.authState.collectAsState()
+    var showConfirmation by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.orderPlaced) {
         if (state.orderPlaced) {
@@ -68,7 +74,7 @@ fun CartScreen(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
-                            onClick = { viewModel.placeOrder() },
+                            onClick = { showConfirmation = true },
                             modifier = Modifier.fillMaxWidth().height(56.dp),
                             shape = RoundedCornerShape(12.dp),
                             enabled = !state.isPlacingOrder
@@ -84,6 +90,35 @@ fun CartScreen(
             }
         }
     ) { padding ->
+        if (showConfirmation) {
+            AlertDialog(
+                onDismissRequest = { showConfirmation = false },
+                title = { Text("Confirm Order", fontWeight = FontWeight.Bold) },
+                text = {
+                    Column {
+                        Text("Confirming your order of ₹${state.totalPrice}.")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Delivery to:", fontWeight = FontWeight.Bold)
+                        Text(authState.user?.address ?: "No address specified")
+                    }
+                },
+                confirmButton = {
+                    Button(onClick = {
+                        showConfirmation = false
+                        viewModel.placeOrder()
+                        Toast.makeText(context, "Order placed successfully", Toast.LENGTH_LONG).show()
+                    }) {
+                        Text("Confirm")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showConfirmation = false }) {
+                        Text("Cancel")
+                    }
+                },
+                shape = RoundedCornerShape(16.dp)
+            )
+        }
         if (state.items.isEmpty()) {
             Box(modifier = Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {
                 Text("Your cart is empty", style = MaterialTheme.typography.headlineSmall, color = Color.Gray)

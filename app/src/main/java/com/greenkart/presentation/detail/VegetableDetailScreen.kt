@@ -1,5 +1,7 @@
 package com.greenkart.presentation.detail
 
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -31,6 +33,7 @@ fun VegetableDetailScreen(
     onBack: () -> Unit,
     onViewCart: () -> Unit
 ) {
+    val context = LocalContext.current
     val state by viewModel.state
     
     LaunchedEffect(vegetableId) {
@@ -47,7 +50,11 @@ fun VegetableDetailScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { viewModel.toggleFavorite() }) {
+                    IconButton(onClick = { 
+                        viewModel.toggleFavorite() 
+                        val message = if (state.isFavorite) "Removed from favorites" else "Added to favorites"
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    }) {
                         Icon(
                             imageVector = if (state.isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             contentDescription = "Favorite",

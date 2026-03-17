@@ -35,7 +35,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun GreenkartTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     // Disabled dynamic color to enforce Zomato Red branding
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit

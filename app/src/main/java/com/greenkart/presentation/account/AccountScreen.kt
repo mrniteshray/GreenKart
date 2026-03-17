@@ -1,5 +1,7 @@
 package com.greenkart.presentation.account
 
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,10 +31,12 @@ fun AccountScreen(
     onLogout: () -> Unit,
     viewModel: AuthViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     val authState by viewModel.authState.collectAsState()
     val user = authState.user
     
     var showEditDialog by remember { mutableStateOf(false) }
+    var showLogoutConfirmation by remember { mutableStateOf(false) }
 
     if (showEditDialog && user != null) {
         var editPhone by remember { mutableStateOf(user.phone) }
@@ -66,6 +70,7 @@ fun AccountScreen(
                 Button(
                     onClick = {
                         viewModel.updateProfile(editPhone, editAddress)
+                        Toast.makeText(context, "Profile updated successfully", Toast.LENGTH_SHORT).show()
                         showEditDialog = false
                     }
                 ) {
@@ -172,18 +177,16 @@ fun AccountScreen(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
         )
 
-        SettingItem(icon = Icons.Default.Settings, title = "App Preferences", onClick = {})
-        SettingItem(icon = Icons.Default.Notifications, title = "Notifications", onClick = {})
+        SettingItem(icon = Icons.Default.PrivacyTip, title = "Privacy Policy", onClick = {})
+        SettingItem(icon = Icons.Default.Star, title = "Rate Us", onClick = {})
+        SettingItem(icon = Icons.Default.Description, title = "Terms and Conditions", onClick = {})
         SettingItem(icon = Icons.Default.Info, title = "About Greenkart", onClick = {})
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // Logout Button
         Button(
-            onClick = {
-                viewModel.logout()
-                onLogout()
-            },
+            onClick = { showLogoutConfirmation = true },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
@@ -202,6 +205,32 @@ fun AccountScreen(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onErrorContainer
+            )
+        }
+
+        if (showLogoutConfirmation) {
+            AlertDialog(
+                onDismissRequest = { showLogoutConfirmation = false },
+                title = { Text("Log Out?", fontWeight = FontWeight.Bold) },
+                text = { Text("Are you sure you want to log out from Greenkart?") },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showLogoutConfirmation = false
+                            viewModel.logout()
+                            onLogout()
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Text("Log Out")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showLogoutConfirmation = false }) {
+                        Text("Cancel")
+                    }
+                },
+                shape = RoundedCornerShape(16.dp)
             )
         }
 

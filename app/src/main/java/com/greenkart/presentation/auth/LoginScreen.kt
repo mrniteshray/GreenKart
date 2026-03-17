@@ -156,14 +156,7 @@ fun LoginScreen(
                     singleLine = true
                 )
 
-                Text(
-                    text = "Forgot Password?",
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .align(Alignment.End)
-                        .padding(top = 12.dp, bottom = 24.dp)
-                )
+                Spacer(modifier = Modifier.height(12.dp))
 
     DisposableEffect(Unit) {
         onDispose {
