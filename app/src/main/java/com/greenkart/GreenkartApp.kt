@@ -2,6 +2,7 @@ package com.greenkart
 
 import android.app.Application
 import com.greenkart.di.authModule
+import com.greenkart.di.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class GreenkartApp : Application() {
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@GreenkartApp)
-            modules(authModule)
+            modules(authModule, homeModule)
         }
     }
 }

@@ -1,0 +1,223 @@
+{
+    "categories": [
+        {
+            "id": "cat_1",
+            "name": "Fresh Arrivals",
+            "imageUrl": "https://images.unsplash.com/photo-1601493700631-2b1660f585ed?auto=format&fit=crop&w=300&q=80"
+        },
+        {
+            "id": "cat_2",
+            "name": "Organic",
+            "imageUrl": "https://images.unsplash.com/photo-1595856728080-05511b058a5e?auto=format&fit=crop&w=300&q=80"
+        },
+        {
+            "id": "cat_3",
+            "name": "Leafy Greens",
+            "imageUrl": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=300&q=80"
+        },
+        {
+            "id": "cat_4",
+            "name": "Root Veggies",
+            "imageUrl": "https://images.unsplash.com/photo-1598170845058-202be1bcecf9?auto=format&fit=crop&w=300&q=80"
+        },
+        {
+            "id": "cat_5",
+            "name": "Everyday Essentials",
+            "imageUrl": "https://images.unsplash.com/photo-1518977676601-52264bdbe8f1?auto=format&fit=crop&w=300&q=80"
+        },
+        {
+            "id": "cat_6",
+            "name": "Exotic",
+            "imageUrl": "https://images.unsplash.com/photo-1590779033100-9f60705a413b?auto=format&fit=crop&w=300&q=80"
+        },
+        {
+            "id": "cat_7",
+            "name": "Fresh Fruits",
+            "imageUrl": "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=300&q=80"
+        }
+    ],
+    "vegetables": [
+        {
+            "id": "veg_1",
+            "name": "Fresh Tomato",
+            "description": "Locally sourced juicy red tomatoes perfect for gravies and salads.",
+            "price": 45.0,
+            "originalPrice": 60.0,
+            "unit": "1 kg",
+            "categoryId": "cat_5",
+            "imageUrl": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.8,
+            "deliveryTime": "20-30 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_2",
+            "name": "Organic Potato",
+            "description": "Rich in carbohydrates, perfect for everyday meals.",
+            "price": 35.0,
+            "originalPrice": 45.0,
+            "unit": "1 kg",
+            "categoryId": "cat_2",
+            "imageUrl": "https://images.unsplash.com/photo-1518977676601-52264bdbe8f1?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.5,
+            "deliveryTime": "15-25 mins",
+            "isOrganic": true
+        },
+        {
+            "id": "veg_3",
+            "name": "Red Onion",
+            "description": "Crisp and sharp red onions for all Indian curries.",
+            "price": 50.0,
+            "originalPrice": 65.0,
+            "unit": "1 kg",
+            "categoryId": "cat_5",
+            "imageUrl": "https://images.unsplash.com/photo-1618512496248-a07ce83aa8cb?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.6,
+            "deliveryTime": "10-20 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_4",
+            "name": "Fresh Spinach (Palak)",
+            "description": "Farm fresh Palak, loaded with iron and nutrients.",
+            "price": 25.0,
+            "originalPrice": 30.0,
+            "unit": "1 bunch",
+            "categoryId": "cat_3",
+            "imageUrl": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.9,
+            "deliveryTime": "30-40 mins",
+            "isOrganic": true
+        },
+        {
+            "id": "veg_5",
+            "name": "Carrot (Gajar)",
+            "description": "Crunchy sweet carrots straight from the farms.",
+            "price": 60.0,
+            "originalPrice": 80.0,
+            "unit": "1 kg",
+            "categoryId": "cat_4",
+            "imageUrl": "https://images.unsplash.com/photo-1598170845058-202be1bcecf9?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.7,
+            "deliveryTime": "20-30 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_6",
+            "name": "Green Capsicum",
+            "description": "Fresh and crunchy green bell peppers.",
+            "price": 80.0,
+            "originalPrice": 100.0,
+            "unit": "500 g",
+            "categoryId": "cat_1",
+            "imageUrl": "https://images.unsplash.com/photo-1563514995536-ea3eaeb211af?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.4,
+            "deliveryTime": "25-35 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_7",
+            "name": "Garlic",
+            "description": "Aromatic whole garlic bulbs for strong flavors.",
+            "price": 120.0,
+            "originalPrice": 150.0,
+            "unit": "250 g",
+            "categoryId": "cat_5",
+            "imageUrl": "https://images.unsplash.com/photo-1540148426946-57cb5451c8a1?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.8,
+            "deliveryTime": "15-25 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_8",
+            "name": "Broccoli",
+            "description": "Premium quality broccoli crowns rich in vitamins.",
+            "price": 150.0,
+            "originalPrice": 180.0,
+            "unit": "500 g",
+            "categoryId": "cat_6",
+            "imageUrl": "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.7,
+            "deliveryTime": "40-50 mins",
+            "isOrganic": true
+        },
+        {
+            "id": "veg_9",
+            "name": "Cauliflower (Gobi)",
+            "description": "Fresh white cauliflower florets, great for curries.",
+            "price": 40.0,
+            "originalPrice": 55.0,
+            "unit": "1 piece",
+            "categoryId": "cat_4",
+            "imageUrl": "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.6,
+            "deliveryTime": "25-35 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_10",
+            "name": "Ginger (Adrak)",
+            "description": "Strong flavored fresh ginger root.",
+            "price": 45.0,
+            "originalPrice": 60.0,
+            "unit": "250 g",
+            "categoryId": "cat_5",
+            "imageUrl": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.7,
+            "deliveryTime": "15-25 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_11",
+            "name": "Cucumber (Kheera)",
+            "description": "Cool and hydrating cucumbers for salads.",
+            "price": 30.0,
+            "originalPrice": 40.0,
+            "unit": "1 kg",
+            "categoryId": "cat_1",
+            "imageUrl": "https://images.unsplash.com/photo-1449333254717-275888899e69?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.5,
+            "deliveryTime": "20-30 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_12",
+            "name": "Sweet Corn",
+            "description": "Golden sweet corn cobs, perfectly ripe.",
+            "price": 25.0,
+            "originalPrice": 35.0,
+            "unit": "1 piece",
+            "categoryId": "cat_1",
+            "imageUrl": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.8,
+            "deliveryTime": "25-35 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_13",
+            "name": "Apple (Royal Gala)",
+            "description": "Crunchy and sweet apples from Himachal.",
+            "price": 180.0,
+            "originalPrice": 220.0,
+            "unit": "1 kg",
+            "categoryId": "cat_7",
+            "imageUrl": "https://images.unsplash.com/photo-1560806887-1e4cd0b6bcd6?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.9,
+            "deliveryTime": "30-40 mins",
+            "isOrganic": false
+        },
+        {
+            "id": "veg_14",
+            "name": "Banana (Yelakki)",
+            "description": "Small, sweet and nutrient dense bananas.",
+            "price": 60.0,
+            "originalPrice": 80.0,
+            "unit": "1 kg",
+            "categoryId": "cat_7",
+            "imageUrl": "https://images.unsplash.com/photo-1571771894821-ad99026107b8?auto=format&fit=crop&w=400&q=80",
+            "rating": 4.7,
+            "deliveryTime": "15-25 mins",
+            "isOrganic": false
+        }
+    ]
+}

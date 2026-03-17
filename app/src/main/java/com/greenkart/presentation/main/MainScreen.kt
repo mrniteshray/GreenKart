@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.greenkart.presentation.account.AccountScreen
+import com.greenkart.presentation.home.HomeScreen
 
 sealed class BottomNavItem(
     val title: String,
@@ -75,6 +76,9 @@ fun MainScreen(
                 .padding(paddingValues)
         ) {
             when (selectedItemIndex) {
+                0 -> {
+                    HomeScreen()
+                }
                 3 -> {
                     AccountScreen(onLogout = onLogout)
                 }
