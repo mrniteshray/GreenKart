@@ -208,18 +208,18 @@ fun OrderDetailContent(order: Order) {
                     fontSize = 14.sp
                 )
                 Text(date, fontSize = 12.sp, color = Color.Gray)
-            }
-            Box(
-                modifier = Modifier
-                    .background(Color(0xFF2E7D32), RoundedCornerShape(8.dp))
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
-            ) {
-                Text(
-                    order.status,
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                Box(
+                    modifier = Modifier
+                        .background(Color(0xFF2E7D32), RoundedCornerShape(8.dp))
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                ) {
+                    Text(
+                        order.status,
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
 

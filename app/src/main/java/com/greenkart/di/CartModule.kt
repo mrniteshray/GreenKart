@@ -24,6 +24,7 @@ val cartModule = module {
     }
     single { get<GreenkartDatabase>().cartDao }
     single { get<GreenkartDatabase>().orderDao }
+    single { get<GreenkartDatabase>().favoriteDao }
     single<CartRepository> { CartRepositoryImpl(get()) }
     single<OrderRepository> { OrderRepositoryImpl(get()) }
 

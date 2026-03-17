@@ -79,21 +79,7 @@ fun HomeScreen(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                IconButton(onClick = { }) {
-                    Box(
-                        modifier = Modifier
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Person,
-                            contentDescription = "Profile",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
+
             }
 
             // Search Bar
@@ -123,12 +109,6 @@ fun HomeScreen(
                                     tint = Color.Gray
                                 )
                             }
-                        } else {
-                            Icon(
-                                Icons.Default.Mic,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
                         }
                     },
                     shape = RoundedCornerShape(12.dp),

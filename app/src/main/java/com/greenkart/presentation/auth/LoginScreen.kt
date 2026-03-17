@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.greenkart.R
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,6 +63,14 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .padding(bottom = 16.dp),
+                    contentScale = ContentScale.Fit
+                )
                 Text(
                     text = "Greenkart",
                     fontSize = 42.sp,
@@ -156,15 +165,21 @@ fun LoginScreen(
                         .padding(top = 12.dp, bottom = 24.dp)
                 )
 
-                if (authState.error != null) {
-                    Text(
-                        text = authState.error!!,
-                        color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.bodySmall,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-                }
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.clearError()
+        }
+    }
+
+    if (authState.error != null) {
+        Text(
+            text = authState.error!!,
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+    }
 
                 if (authState.isLoading) {
                     CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)

@@ -48,6 +48,15 @@ class AuthViewModel(
     }
 
     fun login(email: String, password: String) {
+        if (email.isBlank() || password.isBlank()) {
+            _authState.value = AuthState(error = "Please fill in all fields")
+            return
+        }
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState(error = "Please enter a valid email address")
+            return
+        }
+
         viewModelScope.launch {
             authRepository.login(email, password).collect { result ->
                 when (result) {
@@ -66,6 +75,23 @@ class AuthViewModel(
     }
 
     fun signup(name: String, email: String, phone: String, address: String, password: String) {
+        if (name.isBlank() || email.isBlank() || phone.isBlank() || address.isBlank() || password.isBlank()) {
+            _authState.value = AuthState(error = "Please fill in all fields")
+            return
+        }
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState(error = "Please enter a valid email address")
+            return
+        }
+        if (password.length < 6) {
+            _authState.value = AuthState(error = "Password must be at least 6 characters long")
+            return
+        }
+        if (phone.length < 10) {
+            _authState.value = AuthState(error = "Please enter a valid phone number")
+            return
+        }
+
         viewModelScope.launch {
             authRepository.signup(name, email, phone, address, password).collect { result ->
                 when (result) {
@@ -84,6 +110,11 @@ class AuthViewModel(
     }
 
     fun updateProfile(phone: String, address: String) {
+        if (phone.isBlank() || address.isBlank()) {
+            _authState.value = _authState.value.copy(error = "Please fill in all fields")
+            return
+        }
+
         viewModelScope.launch {
             authRepository.updateUserDetails(phone, address).collect { result ->
                 when (result) {
@@ -99,6 +130,14 @@ class AuthViewModel(
                 }
             }
         }
+    }
+
+    fun clearError() {
+        _authState.value = _authState.value.copy(error = null)
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     fun logout() {

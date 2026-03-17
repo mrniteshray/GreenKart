@@ -3,37 +3,37 @@
         {
             "id": "cat_1",
             "name": "Fresh Arrivals",
-            "imageUrl": "https://images.unsplash.com/photo-1601493700631-2b1660f585ed?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://media.istockphoto.com/id/137350104/photo/green-peppers.webp?a=1&b=1&s=612x612&w=0&k=20&c=7u2DZpZoSZIWkSDyvAbxkvNU09BrvPdQCPzM4LcsxvU="
         },
         {
             "id": "cat_2",
             "name": "Organic",
-            "imageUrl": "https://images.unsplash.com/photo-1595856728080-05511b058a5e?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://media.istockphoto.com/id/157430678/photo/three-potatoes.webp?a=1&b=1&s=612x612&w=0&k=20&c=xCQkT9Rwrz3XgFnLQfQZ2mq-xTA4WuGkdr23MkdPddA="
         },
         {
             "id": "cat_3",
             "name": "Leafy Greens",
-            "imageUrl": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=400&q=80"
         },
         {
             "id": "cat_4",
             "name": "Root Veggies",
-            "imageUrl": "https://images.unsplash.com/photo-1598170845058-202be1bcecf9?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://images.unsplash.com/photo-1590848791238-fb3596a2ba56?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fENhcnJvdCUyMHZlZ2l0YWJsZXxlbnwwfHwwfHx8MA%3D%3D"
         },
         {
             "id": "cat_5",
             "name": "Everyday Essentials",
-            "imageUrl": "https://images.unsplash.com/photo-1518977676601-52264bdbe8f1?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80"
         },
         {
             "id": "cat_6",
             "name": "Exotic",
-            "imageUrl": "https://images.unsplash.com/photo-1590779033100-9f60705a413b?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=400&q=80"
         },
         {
             "id": "cat_7",
             "name": "Fresh Fruits",
-            "imageUrl": "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=300&q=80"
+            "imageUrl": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8QXBwbGV8ZW58MHx8MHx8fDA%3D"
         }
     ],
     "vegetables": [
@@ -58,7 +58,7 @@
             "originalPrice": 45.0,
             "unit": "1 kg",
             "categoryId": "cat_2",
-            "imageUrl": "https://images.unsplash.com/photo-1518977676601-52264bdbe8f1?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://media.istockphoto.com/id/157430678/photo/three-potatoes.webp?a=1&b=1&s=612x612&w=0&k=20&c=xCQkT9Rwrz3XgFnLQfQZ2mq-xTA4WuGkdr23MkdPddA=",
             "rating": 4.5,
             "deliveryTime": "15-25 mins",
             "isOrganic": true
@@ -71,7 +71,7 @@
             "originalPrice": 65.0,
             "unit": "1 kg",
             "categoryId": "cat_5",
-            "imageUrl": "https://images.unsplash.com/photo-1618512496248-a07ce83aa8cb?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://images.unsplash.com/photo-1683355739329-cea18ba93f02?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG9uaW9ufGVufDB8fDB8fHww",
             "rating": 4.6,
             "deliveryTime": "10-20 mins",
             "isOrganic": false
@@ -97,7 +97,7 @@
             "originalPrice": 80.0,
             "unit": "1 kg",
             "categoryId": "cat_4",
-            "imageUrl": "https://images.unsplash.com/photo-1598170845058-202be1bcecf9?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://images.unsplash.com/photo-1590848791238-fb3596a2ba56?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fENhcnJvdCUyMHZlZ2l0YWJsZXxlbnwwfHwwfHx8MA%3D%3D",
             "rating": 4.7,
             "deliveryTime": "20-30 mins",
             "isOrganic": false
@@ -110,7 +110,7 @@
             "originalPrice": 100.0,
             "unit": "500 g",
             "categoryId": "cat_1",
-            "imageUrl": "https://images.unsplash.com/photo-1563514995536-ea3eaeb211af?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://media.istockphoto.com/id/137350104/photo/green-peppers.webp?a=1&b=1&s=612x612&w=0&k=20&c=7u2DZpZoSZIWkSDyvAbxkvNU09BrvPdQCPzM4LcsxvU=",
             "rating": 4.4,
             "deliveryTime": "25-35 mins",
             "isOrganic": false
@@ -123,7 +123,7 @@
             "originalPrice": 150.0,
             "unit": "250 g",
             "categoryId": "cat_5",
-            "imageUrl": "https://images.unsplash.com/photo-1540148426946-57cb5451c8a1?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://images.unsplash.com/photo-1540148426945-6cf22a6b2383?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8R2FybGljfGVufDB8fDB8fHww",
             "rating": 4.8,
             "deliveryTime": "15-25 mins",
             "isOrganic": false
@@ -175,7 +175,7 @@
             "originalPrice": 40.0,
             "unit": "1 kg",
             "categoryId": "cat_1",
-            "imageUrl": "https://images.unsplash.com/photo-1449333254717-275888899e69?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Q3VjdW1iZXJ8ZW58MHx8MHx8fDA%3D",
             "rating": 4.5,
             "deliveryTime": "20-30 mins",
             "isOrganic": false
@@ -195,13 +195,13 @@
         },
         {
             "id": "veg_13",
-            "name": "Apple (Royal Gala)",
+            "name": "Apple",
             "description": "Crunchy and sweet apples from Himachal.",
             "price": 180.0,
             "originalPrice": 220.0,
             "unit": "1 kg",
             "categoryId": "cat_7",
-            "imageUrl": "https://images.unsplash.com/photo-1560806887-1e4cd0b6bcd6?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8QXBwbGV8ZW58MHx8MHx8fDA%3D",
             "rating": 4.9,
             "deliveryTime": "30-40 mins",
             "isOrganic": false
@@ -214,7 +214,7 @@
             "originalPrice": 80.0,
             "unit": "1 kg",
             "categoryId": "cat_7",
-            "imageUrl": "https://images.unsplash.com/photo-1571771894821-ad99026107b8?auto=format&fit=crop&w=400&q=80",
+            "imageUrl": "https://images.unsplash.com/photo-1640958900081-7b069dd23e9c?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fEJhbmFuYXxlbnwwfHwwfHx8MA%3D%3D",
             "rating": 4.7,
             "deliveryTime": "15-25 mins",
             "isOrganic": false

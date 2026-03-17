@@ -84,6 +84,11 @@ fun MainScreen(
                         onViewCart = onViewCart
                     )
                 }
+                1 -> {
+                    com.greenkart.presentation.favorite.MyListScreen(
+                        onNavigateToDetail = onNavigateToDetail
+                    )
+                }
                 2 -> {
                     com.greenkart.presentation.order.OrderScreen()
                 }

@@ -22,25 +22,38 @@ class DetailViewModel(
     val state: State<DetailState> = _state
 
     fun getVegetable(id: String) {
-        homeRepository.getVegetableById(id).onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _state.value = state.value.copy(
-                        vegetable = result.data,
-                        isLoading = false
-                    )
+        viewModelScope.launch {
+            homeRepository.getVegetableById(id).onEach { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val isFav = homeRepository.isFavorite(id)
+                        _state.value = state.value.copy(
+                            vegetable = result.data,
+                            isLoading = false,
+                            isFavorite = isFav
+                        )
+                    }
+                    is Resource.Error -> {
+                        _state.value = state.value.copy(
+                            error = result.message ?: "An unexpected error occurred",
+                            isLoading = false
+                        )
+                    }
+                    is Resource.Loading -> {
+                        _state.value = state.value.copy(isLoading = true)
+                    }
                 }
-                is Resource.Error -> {
-                    _state.value = state.value.copy(
-                        error = result.message ?: "An unexpected error occurred",
-                        isLoading = false
-                    )
-                }
-                is Resource.Loading -> {
-                    _state.value = state.value.copy(isLoading = true)
-                }
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun toggleFavorite() {
+        state.value.vegetable?.let { vegetable ->
+            viewModelScope.launch {
+                homeRepository.toggleFavorite(vegetable)
+                _state.value = state.value.copy(isFavorite = !state.value.isFavorite)
             }
-        }.launchIn(viewModelScope)
+        }
     }
 
     fun addToCart(vegetable: Vegetable) {
@@ -62,5 +75,6 @@ class DetailViewModel(
 data class DetailState(
     val vegetable: Vegetable? = null,
     val isLoading: Boolean = false,
-    val error: String = ""
+    val error: String = "",
+    val isFavorite: Boolean = false
 )

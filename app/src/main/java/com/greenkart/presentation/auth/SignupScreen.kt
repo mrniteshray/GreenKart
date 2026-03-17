@@ -214,11 +214,17 @@ fun SignupScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
+                DisposableEffect(Unit) {
+                    onDispose {
+                        viewModel.clearError()
+                    }
+                }
+
                 if (authState.error != null) {
                     Text(
                         text = authState.error!!,
                         color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
