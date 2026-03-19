@@ -11,5 +11,6 @@ interface AuthRepository {
     suspend fun logout()
     suspend fun fetchCurrentUserDetails(): Flow<Resource<User>>
     suspend fun updateUserDetails(phone: String, address: String): Flow<Resource<User>>
+    suspend fun updateProfileImage(imageUrl: String): Flow<Resource<User>>
 }
 

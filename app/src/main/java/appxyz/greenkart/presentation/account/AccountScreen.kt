@@ -1,6 +1,11 @@
 ﻿package appxyz.greenkart.presentation.account
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
 import appxyz.greenkart.presentation.auth.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -32,11 +38,45 @@ fun AccountScreen(
     viewModel: AuthViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
+    val privacyPolicyUrl = "https://www.termsfeed.com/live/ff1cc6b2-3fb1-4a08-82d0-1393f5d57eb4"
+    val termsAndConditionsUrl = "https://www.termsfeed.com/live/a693e900-f31e-459d-aa0d-bc352fcbcb69"
+
+    fun openExternalUrl(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(browserIntent)
+    }
+
+    fun openRateUs() {
+        val packageName = context.packageName
+        val playStoreIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+        try {
+            context.startActivity(playStoreIntent)
+        } catch (_: ActivityNotFoundException) {
+            openExternalUrl("https://play.google.com/store/apps/details?id=$packageName")
+        }
+    }
+
     val authState by viewModel.authState.collectAsState()
     val user = authState.user
     
     var showEditDialog by remember { mutableStateOf(false) }
     var showLogoutConfirmation by remember { mutableStateOf(false) }
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        if (uri != null) {
+            try {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (_: SecurityException) {
+                // Some providers do not support persistable permissions; URI is still usable.
+            }
+            viewModel.updateProfileImage(uri.toString())
+            Toast.makeText(context, "Profile image updated", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     if (showEditDialog && user != null) {
         var editPhone by remember { mutableStateOf(user.phone) }
@@ -106,12 +146,52 @@ fun AccountScreen(
                         .background(Color.White),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Profile Picture",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(48.dp)
-                    )
+                    if (user?.profileImageUrl?.isNotBlank() == true) {
+                        SubcomposeAsyncImage(
+                            model = user.profileImageUrl,
+                            contentDescription = "Profile Picture",
+                            modifier = Modifier
+                                .size(80.dp)
+                                .clip(CircleShape),
+                            loading = {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(20.dp),
+                                    strokeWidth = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            },
+                            error = {
+                                Icon(
+                                    imageVector = Icons.Default.Person,
+                                    contentDescription = "Profile Picture",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(48.dp)
+                                )
+                            }
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = "Profile Picture",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(48.dp)
+                        )
+                    }
+
+                    IconButton(
+                        onClick = { imagePickerLauncher.launch(arrayOf("image/*")) },
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(28.dp)
+                            .background(MaterialTheme.colorScheme.primary, CircleShape)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit Profile Image",
+                            tint = Color.White,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.width(16.dp))
@@ -177,10 +257,18 @@ fun AccountScreen(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
         )
 
-        SettingItem(icon = Icons.Default.PrivacyTip, title = "Privacy Policy", onClick = {})
-        SettingItem(icon = Icons.Default.Star, title = "Rate Us", onClick = {})
-        SettingItem(icon = Icons.Default.Description, title = "Terms and Conditions", onClick = {})
-        SettingItem(icon = Icons.Default.Info, title = "About Greenkart", onClick = {})
+        SettingItem(icon = Icons.Default.PrivacyTip, title = "Privacy Policy", onClick = {
+            openExternalUrl(privacyPolicyUrl)
+        })
+        SettingItem(icon = Icons.Default.Star, title = "Rate Us", onClick = {
+            openRateUs()
+        })
+        SettingItem(icon = Icons.Default.Description, title = "Terms and Conditions", onClick = {
+            openExternalUrl(termsAndConditionsUrl)
+        })
+        SettingItem(icon = Icons.Default.Info, title = "About Greenkart", onClick = {
+            openExternalUrl(privacyPolicyUrl)
+        })
 
         Spacer(modifier = Modifier.height(24.dp))
 

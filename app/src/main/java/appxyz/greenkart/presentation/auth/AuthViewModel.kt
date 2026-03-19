@@ -2,12 +2,15 @@
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import appxyz.greenkart.data.local.ProfileImageLocalDataStore
 import appxyz.greenkart.domain.model.User
 import appxyz.greenkart.domain.repository.AuthRepository
 import appxyz.greenkart.domain.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 data class AuthState(
@@ -17,11 +20,13 @@ data class AuthState(
 )
 
 class AuthViewModel(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val profileImageLocalDataStore: ProfileImageLocalDataStore
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow(AuthState())
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
+    private var profileImageObserverJob: Job? = null
 
     init {
         checkCurrentUser()
@@ -31,12 +36,14 @@ class AuthViewModel(
         val currentUser = authRepository.getCurrentUser()
         if (currentUser != null) {
             _authState.value = _authState.value.copy(user = currentUser)
+            observeLocalProfileImage(currentUser.id)
             
             // Fetch the full details asynchronously to grab Phone and Address
             viewModelScope.launch {
                 authRepository.fetchCurrentUserDetails().collect { result ->
                     if (result is Resource.Success) {
                         _authState.value = _authState.value.copy(user = result.data, isLoading = false)
+                        observeLocalProfileImage(result.data?.id ?: "")
                     } else if (result is Resource.Error) {
                         _authState.value = _authState.value.copy(error = result.message, isLoading = false)
                     } else if (result is Resource.Loading) {
@@ -62,6 +69,7 @@ class AuthViewModel(
                 when (result) {
                     is Resource.Success -> {
                         _authState.value = AuthState(user = result.data)
+                        observeLocalProfileImage(result.data?.id ?: "")
                     }
                     is Resource.Error -> {
                         _authState.value = AuthState(error = result.message)
@@ -97,6 +105,7 @@ class AuthViewModel(
                 when (result) {
                     is Resource.Success -> {
                         _authState.value = AuthState(user = result.data)
+                        observeLocalProfileImage(result.data?.id ?: "")
                     }
                     is Resource.Error -> {
                         _authState.value = AuthState(error = result.message)
@@ -152,6 +161,41 @@ class AuthViewModel(
                     is Resource.Loading -> {
                         _authState.value = _authState.value.copy(isLoading = true)
                     }
+                }
+            }
+        }
+    }
+
+    fun updateProfileImage(imageUri: String) {
+        if (imageUri.isBlank()) {
+            _authState.value = _authState.value.copy(error = "Image cannot be empty")
+            return
+        }
+
+        val currentUser = _authState.value.user
+        if (currentUser == null) {
+            _authState.value = _authState.value.copy(error = "Please login first")
+            return
+        }
+
+        viewModelScope.launch {
+            _authState.value = _authState.value.copy(isLoading = true)
+            profileImageLocalDataStore.saveProfileImageUri(currentUser.id, imageUri)
+            _authState.value = _authState.value.copy(
+                user = currentUser.copy(profileImageUrl = imageUri),
+                isLoading = false,
+                error = null
+            )
+        }
+    }
+
+    private fun observeLocalProfileImage(userId: String) {
+        profileImageObserverJob?.cancel()
+        profileImageObserverJob = viewModelScope.launch {
+            profileImageLocalDataStore.getProfileImageUri(userId).collectLatest { localUri ->
+                val currentUser = _authState.value.user
+                if (currentUser != null && localUri.isNotBlank() && currentUser.profileImageUrl != localUri) {
+                    _authState.value = _authState.value.copy(user = currentUser.copy(profileImageUrl = localUri))
                 }
             }
         }

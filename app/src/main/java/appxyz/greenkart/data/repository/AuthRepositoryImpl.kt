@@ -1,6 +1,7 @@
 ﻿package appxyz.greenkart.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import appxyz.greenkart.domain.model.User
 import appxyz.greenkart.domain.repository.AuthRepository
@@ -25,7 +26,8 @@ class AuthRepositoryImpl(
                 name = firebaseUser.displayName ?: "",
                 email = firebaseUser.email ?: "",
                 phone = "",
-                address = ""
+                address = "",
+                profileImageUrl = firebaseUser.photoUrl?.toString() ?: ""
             )
         } else {
             null
@@ -48,7 +50,9 @@ class AuthRepositoryImpl(
                                         name = document.getString("name") ?: firebaseUser.displayName ?: "",
                                         email = document.getString("email") ?: firebaseUser.email ?: email,
                                         phone = document.getString("phone") ?: "",
-                                        address = document.getString("address") ?: ""
+                                        address = document.getString("address") ?: "",
+                                        profileImageUrl = document.getString("profileImageUrl")
+                                            ?: firebaseUser.photoUrl?.toString().orEmpty()
                                     )
                                     trySend(Resource.Success(user))
                                 } else {
@@ -58,7 +62,8 @@ class AuthRepositoryImpl(
                                         name = firebaseUser.displayName ?: "",
                                         email = firebaseUser.email ?: email,
                                         phone = "",
-                                        address = ""
+                                        address = "",
+                                        profileImageUrl = firebaseUser.photoUrl?.toString() ?: ""
                                     )
                                     trySend(Resource.Success(user))
                                 }
@@ -69,7 +74,8 @@ class AuthRepositoryImpl(
                                     name = firebaseUser.displayName ?: "",
                                     email = firebaseUser.email ?: email,
                                     phone = "",
-                                    address = ""
+                                    address = "",
+                                    profileImageUrl = firebaseUser.photoUrl?.toString() ?: ""
                                 )
                                 trySend(Resource.Success(user))
                             }
@@ -97,7 +103,8 @@ class AuthRepositoryImpl(
                             name = name,
                             email = email,
                             phone = phone,
-                            address = address
+                            address = address,
+                            profileImageUrl = ""
                         )
                         
                         // Save to firestore
@@ -132,7 +139,9 @@ class AuthRepositoryImpl(
                             name = document.getString("name") ?: firebaseUser.displayName ?: "",
                             email = document.getString("email") ?: firebaseUser.email ?: "",
                             phone = document.getString("phone") ?: "",
-                            address = document.getString("address") ?: ""
+                            address = document.getString("address") ?: "",
+                            profileImageUrl = document.getString("profileImageUrl")
+                                ?: firebaseUser.photoUrl?.toString().orEmpty()
                         )
                         trySend(Resource.Success(user))
                     } else {
@@ -167,7 +176,9 @@ class AuthRepositoryImpl(
                                     name = document.getString("name") ?: firebaseUser.displayName ?: "",
                                     email = document.getString("email") ?: firebaseUser.email ?: "",
                                     phone = document.getString("phone") ?: "",
-                                    address = document.getString("address") ?: ""
+                                    address = document.getString("address") ?: "",
+                                    profileImageUrl = document.getString("profileImageUrl")
+                                        ?: firebaseUser.photoUrl?.toString().orEmpty()
                                 )
                                 trySend(Resource.Success(user))
                             } else {
@@ -180,6 +191,51 @@ class AuthRepositoryImpl(
                 }
                 .addOnFailureListener { e ->
                     trySend(Resource.Error(e.message ?: "Failed to update profile"))
+                }
+        } else {
+            trySend(Resource.Error("No user logged in"))
+        }
+        awaitClose { /* cleanup */ }
+    }
+
+    override suspend fun updateProfileImage(imageUrl: String): Flow<Resource<User>> = callbackFlow {
+        trySend(Resource.Loading())
+        val firebaseUser = firebaseAuth.currentUser
+        if (firebaseUser != null) {
+            val updates = hashMapOf<String, Any>("profileImageUrl" to imageUrl)
+
+            firestore.collection("users").document(firebaseUser.uid).update(updates)
+                .addOnSuccessListener {
+                    val profileUpdate = UserProfileChangeRequest.Builder()
+                        .setPhotoUri(android.net.Uri.parse(imageUrl))
+                        .build()
+
+                    firebaseUser.updateProfile(profileUpdate)
+                        .addOnCompleteListener {
+                            firestore.collection("users").document(firebaseUser.uid).get()
+                                .addOnSuccessListener { document ->
+                                    if (document != null && document.exists()) {
+                                        val user = User(
+                                            id = firebaseUser.uid,
+                                            name = document.getString("name") ?: firebaseUser.displayName ?: "",
+                                            email = document.getString("email") ?: firebaseUser.email ?: "",
+                                            phone = document.getString("phone") ?: "",
+                                            address = document.getString("address") ?: "",
+                                            profileImageUrl = document.getString("profileImageUrl")
+                                                ?: firebaseUser.photoUrl?.toString().orEmpty()
+                                        )
+                                        trySend(Resource.Success(user))
+                                    } else {
+                                        trySend(Resource.Error("User profile not found after image update."))
+                                    }
+                                }
+                                .addOnFailureListener { e ->
+                                    trySend(Resource.Error(e.message ?: "Failed to fetch updated profile image"))
+                                }
+                        }
+                }
+                .addOnFailureListener { e ->
+                    trySend(Resource.Error(e.message ?: "Failed to update profile image"))
                 }
         } else {
             trySend(Resource.Error("No user logged in"))
