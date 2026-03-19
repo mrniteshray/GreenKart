@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.greenkart"
+    namespace = "appxyz.greenkart"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.greenkart"
+        applicationId = "appxyz.greenkart"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:415133076555:android:e467a6fb1a93d42c5191ce",
+        "mobilesdk_app_id": "1:415133076555:android:3d778d50cbbb087d5191ce",
         "android_client_info": {
-          "package_name": "com.greenkart"
+          "package_name": "appxyz.greenkart"
         }
       },
       "oauth_client": [],
